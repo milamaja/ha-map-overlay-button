@@ -1,0 +1,14 @@
+{
+  "domain": "map_overlay_button",
+  "name": "Map Overlay Button",
+  "codeowners": ["@milamaja"],
+  "config_flow": true,
+  "dependencies": ["frontend", "http", "lovelace"],
+  "documentation": "https://github.com/milamaja/ha-map-overlay-button",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/milamaja/ha-map-overlay-button/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "1.0.0"
+}

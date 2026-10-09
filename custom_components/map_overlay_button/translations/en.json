@@ -1,0 +1,16 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Map Overlay Button",
+        "description": "Adds the Map Overlay Button card to your dashboards: Home Assistant's map with a button on top that does what you choose. After this, edit a dashboard, add a card and pick Map Overlay Button."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Map Overlay Button is already set up."
+    },
+    "create_entry": {
+      "default": "Done. Reload this page once (press F5, pull down on a phone or tablet, or restart a kiosk app) so your browser loads the card. Then edit a dashboard, choose Add card and pick Map Overlay Button."
+    }
+  }
+}

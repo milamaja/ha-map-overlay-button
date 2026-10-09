@@ -1,0 +1,16 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Map Overlay Button",
+        "description": "Voegt de kaart Map Overlay Button toe aan je dashboards: de kaart van Home Assistant met een knop erop die doet wat jij kiest. Bewerk daarna een dashboard, voeg een kaart toe en kies Map Overlay Button."
+      }
+    },
+    "abort": {
+      "single_instance_allowed": "Map Overlay Button is al ingesteld."
+    },
+    "create_entry": {
+      "default": "Klaar. Laad deze pagina één keer opnieuw (druk op F5, trek omlaag op een telefoon of tablet, of herstart een kiosk-app) zodat je browser de kaart laadt. Bewerk daarna een dashboard, kies Kaart toevoegen en kies Map Overlay Button."
+    }
+  }
+}
