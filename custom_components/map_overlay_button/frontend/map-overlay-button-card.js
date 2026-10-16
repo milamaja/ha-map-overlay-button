@@ -7,11 +7,14 @@
  * of the built-in map card works the same.
  */
 
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 const CARD_TYPE = "map-overlay-button-card";
 const EDITOR_TYPE = "map-overlay-button-card-editor";
 const POSITIONS = ["bottom-left", "bottom-right", "top-left", "top-right"];
 const DEFAULT_POSITION = "bottom-left";
+// Tabs of the map's drawer in a panel view; ?tab=<one of these> in the page
+// address opens the drawer on that tab.
+const TABS = ["people", "devices", "zones"];
 
 // Button height plus its margin from the map edge. The map's people drawer
 // keeps this much room free on the button's side.
@@ -183,6 +186,17 @@ class MapOverlayButtonCard extends HTMLElement {
     this._layout = undefined;
     this._preview = false;
     this._buildId = 0;
+    this._onLocationChanged = () => this._applyTab();
+  }
+
+  connectedCallback() {
+    // Navigating to this view while it is already open (for example from a
+    // tap elsewhere with ?tab=devices) does not rebuild the card.
+    window.addEventListener("location-changed", this._onLocationChanged);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener("location-changed", this._onLocationChanged);
   }
 
   static getConfigElement() {
@@ -409,6 +423,30 @@ class MapOverlayButtonCard extends HTMLElement {
       shadow.adoptedStyleSheets = shadow.adoptedStyleSheets.concat([sheet]);
     } catch (_ignored) {
       // Cosmetic only; the map and the button work without it.
+    }
+    this._applyTab();
+  }
+
+  // The map's drawer opens on People. With ?tab=devices (or zones, people) in
+  // the page address it opens on that tab instead: the drawer is told the same
+  // way as when the tab is tapped. Without the parameter nothing changes.
+  async _applyTab() {
+    const tab = new URLSearchParams(window.location.search).get("tab");
+    if (!tab || TABS.indexOf(tab) === -1 || !this._card) {
+      return;
+    }
+    const card = this._card;
+    for (let attempt = 0; attempt < 50; attempt++) {
+      const overview = card.shadowRoot && card.shadowRoot.querySelector("hui-map-overview");
+      if (overview) {
+        overview.dispatchEvent(new CustomEvent("map-overview-tab", { detail: { tab } }));
+        return;
+      }
+      // The drawer appears once the map has loaded.
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      if (card !== this._card) {
+        return;
+      }
     }
   }
 }

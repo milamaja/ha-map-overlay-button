@@ -75,6 +75,11 @@ To open the map from your home view, give a tile or button on the home view a
 tap action **Navigate** to the new map view. On the map, the button takes you
 back.
 
+In a full-screen map, Home Assistant shows a list with the tabs **People**,
+**Devices** and **Zones**, and it always opens on People. Add `?tab=devices`
+(or `?tab=zones`) to the navigation path to open it on that tab instead, for
+example `/your-dashboard/map?tab=devices` to show where the car is.
+
 ## Options in YAML
 
 Everything is in the visual editor; this is for those who prefer YAML. All
