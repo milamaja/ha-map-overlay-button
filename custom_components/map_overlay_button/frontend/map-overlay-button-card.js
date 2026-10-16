@@ -82,7 +82,7 @@ const text = (hass, key) => {
 };
 
 // Options of this card; everything else goes to the built-in map card.
-const CARD_KEYS = ["button", "tap_action", "position", "show_label", "label", "icon"];
+const CARD_KEYS = ["button", "tap_action", "position", "show_label", "label", "icon", "map_tap_action"];
 
 // Inside the built-in map card: keep its people drawer (panel view) clear of
 // the button. Selectors that do not exist in a Home Assistant version simply
@@ -121,9 +121,17 @@ const CARD_CSS = `
     z-index: 0;
     height: 100%;
   }
+  /* map_tap_action: a tap anywhere on the map does that action. */
+  #tap {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
   button {
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -292,6 +300,18 @@ class MapOverlayButtonCard extends HTMLElement {
     mapHolder.id = "map";
     container.appendChild(mapHolder);
 
+    if (this._config.map_tap_action && this._config.map_tap_action.action) {
+      // A small map that opens something bigger: the map itself no longer pans
+      // or zooms, a tap anywhere does the action.
+      const tapLayer = document.createElement("div");
+      tapLayer.id = "tap";
+      tapLayer.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        this._fire(this._config.map_tap_action);
+      });
+      container.appendChild(tapLayer);
+    }
+
     const position = this._config.position || DEFAULT_POSITION;
     this._button = undefined;
     if (this._config.button !== false) {
@@ -369,6 +389,13 @@ class MapOverlayButtonCard extends HTMLElement {
       // Nothing chosen: the first view of the dashboard this map is on.
       const dashboard = window.location.pathname.split("/").filter(Boolean)[0] || "lovelace";
       tapAction = { action: "navigate", navigation_path: `/${dashboard}` };
+    }
+    this._fire(tapAction);
+  }
+
+  _fire(tapAction) {
+    if (this._preview) {
+      return; // Never leave the card editor.
     }
     // The dashboard carries out the action, exactly as for built-in cards.
     this.dispatchEvent(

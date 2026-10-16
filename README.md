@@ -100,7 +100,13 @@ button: true               # false: no button
 tap_action:                # empty: the first view of this dashboard
   action: navigate
   navigation_path: /your-dashboard/your-view
+map_tap_action:            # optional: a tap anywhere on the map does this
+  action: navigate         # (the map then no longer pans or zooms)
+  navigation_path: /your-dashboard/map?tab=devices
 ```
+
+With `map_tap_action` and `button: false`, the card is a small map that
+opens a bigger one: it keeps to the rows it is given in a sections view.
 
 The button colours follow your theme. To change them, set
 `map-overlay-button-background`, `map-overlay-button-color` or
