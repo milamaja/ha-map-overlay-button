@@ -7,7 +7,7 @@
  * of the built-in map card works the same.
  */
 
-const VERSION = "1.1.0";
+const VERSION = "1.1.6";
 const CARD_TYPE = "map-overlay-button-card";
 const EDITOR_TYPE = "map-overlay-button-card-editor";
 const POSITIONS = ["bottom-left", "bottom-right", "top-left", "top-right"];
