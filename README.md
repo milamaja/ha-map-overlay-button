@@ -8,10 +8,6 @@ puts a clear button on the map, for example **Close**, that takes you back to
 your home view. You choose where the button sits, what it says and what it
 does, all from the dashboard editor. No files to copy, no YAML.
 
-<p>
-  <img src="https://raw.githubusercontent.com/milamaja/ha-map-overlay-button/main/images/card.png" width="600" alt="Home Assistant's map with two people, a car and a home zone, and a Close button at the bottom left">
-</p>
-
 ## What you get
 
 - A **Map Overlay Button** card in the dashboard card picker. It is the
@@ -26,6 +22,8 @@ does, all from the dashboard editor. No files to copy, no YAML.
     view of the dashboard the map is on.
 - The button stays clear of the map's people drawer, so they never overlap.
 - Its own integration icon (Home Assistant 2026.3 and newer).
+
+<p><img src="https://raw.githubusercontent.com/milamaja/ha-map-overlay-button/main/images/card.png" width="600" alt="Home Assistant's map with two people, a car and a home zone, and a Close button at the bottom left"></p>
 
 ## Installation
 
